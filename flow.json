@@ -11,6 +11,61 @@
 			"aliases": {
 				"testing": "0000000000000007"
 			}
+		},
+		"FastBreakEscrow": {
+			"source": "cadence/contracts/FastBreakEscrow.cdc",
+			"aliases": {
+				"emulator": "f8d6e0586b0a20c7"
+			}
+		},
+		"DapperUtilityCoin": {
+			"source": "cadence/contracts/TopShot/DapperUtilityCoin.cdc",
+			"aliases": {
+				"mainnet": "ead892083b3e2c6c",
+				"testnet": "82ec283f88a62e65"
+			}
+		},
+		"FastBreakV1": {
+			"source": "cadence/contracts/TopShot/FastBreakV1.cdc",
+			"aliases": {
+				"mainnet": "0b2a3299cc857e29",
+				"testnet": "f8ba321af4bd37bb"
+			}
+		},
+		"Market": {
+			"source": "cadence/contracts/TopShot/Market.cdc",
+			"aliases": {
+				"mainnet": "c1e4f4f4c4257510",
+				"testnet": "f8ba321af4bd37bb"
+			}
+		},"TopShot": {
+			"source": "cadence/contracts/TopShot/TopShot.cdc",
+			"aliases": {
+				"mainnet": "0b2a3299cc857e29",
+				"testnet": "f8ba321af4bd37bb"
+			}
+		},
+		"TopShotLocking": {
+			"source": "cadence/contracts/TopShot/TopShotLocking.cdc",
+			"aliases": {
+				"mainnet": "0b2a3299cc857e29",
+				"testnet": "f8ba321af4bd37bb"
+			}
+		},
+		"TopShotMarketV3": {
+			"source": "cadence/contracts/TopShot/TopShotMarketV3.cdc",
+			"aliases": {
+				"mainnet": "c1e4f4f4c4257510",
+				"testnet": "547f177b243b4d80"
+			}
+		},
+		"aiSportsEscrow": {
+			"source": "cadence/contracts/Escrow.cdc",
+			"aliases": {
+				"emulator": "f8d6e0586b0a20c7",
+				"mainnet": "4fdb077419808080",
+				"testnet": "fdbd9b3dd5c04413"
+			}
 		}
 	},
 	"dependencies": {

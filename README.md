@@ -1,149 +1,81 @@
-# Scheduled Transactions Demo: Increment the Counter
+# aiSports: FastBreak Vaults - Flow Forte Upgrade
 
-This example shows how to schedule a transaction that increments the `Counter` in the near future and verify it on the Flow Emulator using the scheduler manager.
+**An upgrade to the aiSports FastBreak Vaults dApp, integrating Flow Forte's powerful new features to enhance automation, composability, and user experience for the Flow Forte Hackathon.**
 
-## Files used
+---
 
-- `cadence/contracts/Counter.cdc`
-- `cadence/contracts/CounterTransactionHandler.cdc`
-- `cadence/transactions/InitSchedulerManager.cdc`
-- `cadence/transactions/InitCounterTransactionHandler.cdc`
-- `cadence/transactions/ScheduleIncrementIn.cdc`
-- `cadence/scripts/GetCounter.cdc`
+## 🚀 Project Overview
 
-## 1) Start the emulator with Scheduled Transactions
+**aiSports** is a cutting-edge Web3 Fantasy Sports platform built on the Flow blockchain. Our existing `FastBreak Vaults` dApp allows NBA Top Shot collectors to amplify their fantasy experience by staking `$FLOW` into on-chain prize pools tied to the performance of their FastBreak lineups. The smart contracts automatically verify outcomes and distribute winnings, offering a fully transparent and decentralized fantasy sports game.
 
-```bash
-flow emulator --block-time 1s
-```
+This project for the Flow Forte Hackathon focuses on a significant upgrade to FastBreak Vaults. We are leveraging the powerful new features of the Forte upgrade—specifically **Scheduled Transactions** and **Actions**—to build a more automated, efficient, and accessible platform.
 
-Keep this running. Open a new terminal for the next steps.
+The core goals of this upgrade are:
+1.  **Automate Operations:** Eliminate the need for manual intervention to close daily contests and process payouts.
+2.  **Enhance Composability:** Use Forte Actions to seamlessly integrate with other protocols on Flow, starting with DEXs for token swaps.
+3.  **Expand Accessibility:** Allow users to enter contests with any supported token, not just `$FLOW`, dramatically improving the user experience.
 
-## 2) Deploy contracts
+## ✨ Key Features for the Forte Hackathon
 
-```bash
-flow project deploy --network emulator
-```
+This project introduces several new features built directly on the Forte upgrade:
 
-This deploys `Counter` and `CounterTransactionHandler` (see `flow.json`).
+### 1. Automated Vault Closing & Payouts
+-   **Technology:** Leverages **Flow Scheduled Transactions**.
+-   **Functionality:** At a predetermined time each day, a scheduled transaction will automatically execute on-chain to close the active FastBreak Vaults. It will calculate the winners, process the prize pool, and distribute the winnings without any off-chain keepers or manual triggers.
 
-## 3) Initialize the scheduler manager (if not already done)
+### 2. Seamless Multi-Token Entry
+-   **Technology:** Leverages **Forte Actions** from on-chain DEXs.
+-   **Functionality:** Users can now enter a `$FLOW`-denominated vault using other tokens (e.g., FUSD, STAX). A single, atomic transaction will call a DEX's swap Action to convert the user's token into `$FLOW` and then immediately enter them into the vault. This creates a frictionless one-click experience.
 
-The scheduler manager is now integrated into the scheduling transactions, so this step is optional. The manager will be created automatically when you schedule your first transaction.
+### 3. Automated Conversion to `$JUICE`
+-   **Technology:** Combines **Scheduled Transactions** and **Forte Actions**.
+-   **Functionality:** The automated vault-closing transaction will take the entire prize pool, use a DEX Action to convert it to our native `$JUICE` token, and then distribute the `$JUICE` to the winners. This reinforces our platform's token economy.
 
-If you want to initialize it separately:
+## 🏆 Targeted Bounties
 
-```bash
-flow transactions send cadence/transactions/InitSchedulerManager.cdc \
-  --network emulator \
-  --signer emulator-account
-```
+We are strategically targeting the following bounties with this project:
 
-## 4) Initialize the handler capability
+-   **🥇 Best Existing Code Integration:** We are building upon our established, live aiSports dApp, making meaningful enhancements that leverage core Flow features.
+-   **🥇 Best Use of Flow Forte Actions and Workflows:** Our project is a prime example of Forte's power. We use Scheduled Transactions for automation and Actions for composability, creating a powerful, automated workflow (Close Vault -> Swap Prize Pool -> Payout).
+-   **🥇 Dune Analytics Integration:** We will build and link a comprehensive Dune dashboard to provide transparent, on-chain analytics for our FastBreak Vaults.
+-   **Stretch Goal - KittyPunch: Build on $FROTH Challenge:** Our architecture for multi-token vaults will be extended to allow communities to create vaults denominated in their own tokens, with `$FROTH` as the primary test case.
 
-Saves a handler resource at `/storage/CounterTransactionHandler` and issues the correct capability for the scheduler.
+---
 
-```bash
-flow transactions send cadence/transactions/InitCounterTransactionHandler.cdc \
-  --network emulator \
-  --signer emulator-account
-```
+## 🛠 Technical Architecture
 
-## 5) Check the initial counter
+This project integrates with our existing aiSports ecosystem while introducing a new, dedicated repository for the hackathon.
 
-```bash
-flow scripts execute cadence/scripts/GetCounter.cdc --network emulator
-```
+-   **This Repository (`fastbreak_vaults_forte`):**
+    -   Contains all new Cadence smart contracts, scripts, and transactions for the hackathon.
+    -   Built on the official Flow **Scheduled Transaction** scaffold.
+    -   Implements all Forte-related features.
+-   **aiSports Frontend:** The existing Next.js frontend, which will be updated to interact with the new smart contract features.
+-   **aiSports Firebase Backend:** Our existing backend for off-chain data and game management.
+-   **Flow Cresendo Repo:** Houses the original, core aiSports smart contracts.
 
-Expected: `Result: 0`
+## 📋 Getting Started (Development)
 
-## 6) Schedule an increment in ~2 seconds
+To set up the project locally for development:
 
-Uses `ScheduleIncrementIn.cdc` to compute a future timestamp relative to the current block. This transaction will automatically create the scheduler manager if it doesn't exist.
+1.  **Start the Flow Emulator:**
+    ```bash
+    flow emulator
+    ```
+2.  **Deploy the Contracts:**
+    ```bash
+    flow project deploy
+    ```
+3.  **Run the Frontend (from the `aiSports Frontend` repo):**
+    ```bash
+    npm install
+    npm run dev
+    ```
 
-```bash
-flow transactions send cadence/transactions/ScheduleIncrementCounter.cdc \
-  --network emulator \
-  --signer emulator-account \
-  --args-json '[
-    {"type":"UFix64","value":"2.0"},
-    {"type":"UInt8","value":"1"},
-    {"type":"UInt64","value":"1000"},
-    {"type":"Optional","value":null}
-  ]'
-```
+---
 
-Notes:
+## 🔗 Links & Resources
 
-- Priority `1` = Medium. You can use `0` = High or `2` = Low.
-- `executionEffort` must be >= 10 (1000 is a safe example value).
-- With `--block-time 1s`, blocks seal automatically; after ~3 seconds your scheduled transaction should execute.
-- The transaction uses the scheduler manager to track and manage the scheduled transaction.
-
-## 7) Verify the counter incremented
-
-```bash
-flow scripts execute cadence/scripts/GetCounter.cdc --network emulator
-```
-
-Expected: `Result: 1`
-
-## Troubleshooting
-
-- Invalid timestamp error: use `ScheduleIncrementIn.cdc` with a small delay (e.g., 2.0) so the timestamp is in the future.
-- Missing FlowToken vault: on emulator the default account has a vault; if you use a custom account, initialize it accordingly.
-- Manager not found: The scheduler manager is automatically created in the scheduling transactions. If you see this error, ensure you're using the latest transaction files.
-- More docs: see `/.cursor/rules/scheduledtransactions/index.md`, `agent-rules.mdc`, and `flip.md` in this repo.
-
-## 📦 Project Structure
-
-Your project has been set up with the following structure:
-
-- `flow.json` – Project configuration and dependency aliases (string-imports)
-- `/cadence` – Your Cadence code
-
-Inside the `cadence` folder you will find:
-
-- `/contracts` - This folder contains your Cadence contracts (these are deployed to the network and contain the business logic for your application)
-  - `Counter.cdc`
-  - `CounterTransactionHandler.cdc`
-
-- `/scripts` - This folder contains your Cadence scripts (read-only operations)
-  - `GetCounter.cdc`
-
-- `/transactions` - This folder contains your Cadence transactions (state-changing operations)
-  - `IncrementCounter.cdc`
-  - `ScheduleIncrementCounter.cdc`
-  - `InitSchedulerManager.cdc`
-  - `InitCounterTransactionHandler.cdc`
-
-- `/tests` - This folder contains your Cadence tests (integration tests for your contracts, scripts, and transactions to verify they behave as expected)
-  - `Counter_test.cdc`
-  - `CounterTransactionHandler_test.cdc`
-
-
-## 🔧 Additional CLI Commands
-
-If you need to perform additional setup or management tasks:
-
-**Install dependencies** (if you add new imports that require external contracts):
-```bash
-flow dependencies install
-```
-
-**Create new accounts**:
-```bash
-flow accounts create
-```
-
-**See all available CLI commands**: Check out the [Flow CLI Commands Overview](https://developers.flow.com/build/tools/flow-cli/commands)
-
-## 🔨 Additional Resources
-
-Here are some essential resources to help you learn more:
-
-- **[Flow Documentation](https://developers.flow.com/)** - The official Flow Documentation is a great starting point for learning about [building](https://developers.flow.com/build/flow) on Flow.
-- **[Cadence Documentation](https://cadence-lang.org/docs/language)** - Cadence is the native language for the Flow Blockchain. It is a resource-oriented programming language designed for developing smart contracts.
-- **[Visual Studio Code](https://code.visualstudio.com/)** and the **[Cadence Extension](https://marketplace.visualstudio.com/items?itemName=onflow.cadence)** - Recommended IDE with syntax highlighting, code completion, and other features for Cadence development.
-- **[Flow Clients](https://developers.flow.com/tools/clients)** - Clients available in multiple languages to interact with the Flow Blockchain.
-- **[Block Explorers](https://developers.flow.com/ecosystem/block-explorers)** - Tools to explore on-chain data. [Flowser](https://flowser.dev/) is a powerful block explorer for local development.
+-   **Live Demo URL:** [To be deployed]
+-   **Demo Video:** [To be recorded]
+-   **Dune Analytics Dashboard:** [Link to be added on Day 7]
