@@ -36,6 +36,7 @@ This project introduces several new features built directly on the Forte upgrade
 We are strategically targeting the following bounties with this project:
 
 -   **🥇 Best Existing Code Integration:** We are building upon our established, live aiSports dApp, making meaningful enhancements that leverage core Flow features.
+-   **🥇 Dapper: Top Game Integration Across NBA Top Shot...:** Our entire FastBreak Vaults dApp is a direct extension of **NBA Top Shot's FastBreak game**. We are creating a new layer of engagement by allowing users to stake value on the performance of their lineups, turning a fun activity into a high-stakes, on-chain fantasy competition.
 -   **🥇 Best Use of Flow Forte Actions and Workflows:** Our project is a prime example of Forte's power. We use Scheduled Transactions for automation and Actions for composability, creating a powerful, automated workflow (Close Vault -> Swap Prize Pool -> Payout).
 -   **🥇 Dune Analytics Integration:** We will build and link a comprehensive Dune dashboard to provide transparent, on-chain analytics for our FastBreak Vaults.
 -   **Stretch Goal - KittyPunch: Build on $FROTH Challenge:** Our architecture for multi-token vaults will be extended to allow communities to create vaults denominated in their own tokens, with `$FROTH` as the primary test case.
