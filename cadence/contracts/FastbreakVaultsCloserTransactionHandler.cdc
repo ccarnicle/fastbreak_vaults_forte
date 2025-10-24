@@ -1,6 +1,6 @@
 import "FlowTransactionScheduler"
 import "FlowTransactionSchedulerUtils"
-import "FastbreakVaultsCloser"
+import "FastbreakVaultsCloser_V1"
 import "FlowToken"
 import "FungibleToken"
 
@@ -10,7 +10,8 @@ contract FastbreakVaultsCloserTransactionHandler {
     access(all) resource Handler: FlowTransactionScheduler.TransactionHandler {
         access(FlowTransactionScheduler.Execute) fun executeTransaction(id: UInt64, data: AnyStruct?) {
 
-            FastbreakVaultsCloser.testMessage()
+            let tokenHolder = FastbreakVaultsCloserTransactionHandler.account.address
+            FastbreakVaultsCloser_V1.swapToJuice(tokenHolder: tokenHolder)
             
             var delay: UFix64 = 5.0
             let future = getCurrentBlock().timestamp + delay

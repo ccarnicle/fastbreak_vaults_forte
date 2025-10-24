@@ -12,13 +12,6 @@
 				"testing": "0000000000000007"
 			}
 		},
-		"aiSportsJuice": {
-			"source": "cadence/contracts/aiSports/aiSportsJuice.cdc",
-			"aliases": {
-				"mainnet": "9db94c9564243ba7",
-				"testnet": "f8ba321af4bd37bb"
-			}
-		},
 		"DapperUtilityCoin": {
 			"source": "cadence/contracts/TopShot/DapperUtilityCoin.cdc",
 			"aliases": {
@@ -39,15 +32,16 @@
 				"testnet": "f8ba321af4bd37bb"
 			}
 		},
-		"FastbreakVaultsCloser": {
-			"source": "cadence/contracts/FastbreakVaultsCloser.cdc",
+		"FastbreakVaultsCloserTransactionHandler": {
+			"source": "cadence/contracts/FastbreakVaultsCloserTransactionHandler.cdc",
 			"aliases": {
 				"testing": "0000000000000007"
 			}
 		},
-		"FastbreakVaultsCloserTransactionHandler": {
-			"source": "cadence/contracts/FastbreakVaultsCloserTransactionHandler.cdc",
+		"FastbreakVaultsCloser_V1": {
+			"source": "cadence/contracts/FastbreakVaultsCloser.cdc",
 			"aliases": {
+				"mainnet": "46df6b5eeec6103a",
 				"testing": "0000000000000007"
 			}
 		},
@@ -98,6 +92,13 @@
 				"mainnet": "4fdb077419808080",
 				"testnet": "fdbd9b3dd5c04413"
 			}
+		},
+		"aiSportsJuice": {
+			"source": "cadence/contracts/aiSports/aiSportsJuice.cdc",
+			"aliases": {
+				"mainnet": "9db94c9564243ba7",
+				"testnet": "f8ba321af4bd37bb"
+			}
 		}
 	},
 	"dependencies": {
@@ -108,6 +109,27 @@
 				"emulator": "f8d6e0586b0a20c7",
 				"mainnet": "f233dcee88fe0abe",
 				"testnet": "9a0766d93b6608b7"
+			}
+		},
+		"DeFiActions": {
+			"source": "mainnet://92195d814edf9cb0.DeFiActions",
+			"hash": "67175b2a2569bdff79c221ec7ac823c79dd59c83bce07582cfc3b675dfbe6207",
+			"aliases": {
+				"mainnet": "92195d814edf9cb0"
+			}
+		},
+		"DeFiActionsMathUtils": {
+			"source": "mainnet://92195d814edf9cb0.DeFiActionsMathUtils",
+			"hash": "f2ae511846ea9a545380968837f47a4198447c008e575047f3ace3b7cf782067",
+			"aliases": {
+				"mainnet": "92195d814edf9cb0"
+			}
+		},
+		"DeFiActionsUtils": {
+			"source": "mainnet://92195d814edf9cb0.DeFiActionsUtils",
+			"hash": "d01ab8cd8a57aee3e35ca8a9038f98de2321d6246e03285e0107ef6b4191bff1",
+			"aliases": {
+				"mainnet": "92195d814edf9cb0"
 			}
 		},
 		"FlowFees": {
@@ -173,6 +195,13 @@
 				"testnet": "9a0766d93b6608b7"
 			}
 		},
+		"IncrementFiSwapConnectors": {
+			"source": "mainnet://efa9bd7d1b17f1ed.IncrementFiSwapConnectors",
+			"hash": "f018bbc0e8d21534280570a02f839ae24c7dde4064232c181c2c1bb5d94363bb",
+			"aliases": {
+				"mainnet": "efa9bd7d1b17f1ed"
+			}
+		},
 		"MetadataViews": {
 			"source": "testnet://631e88ae7f1d7c20.MetadataViews",
 			"hash": "0b746cabba668c39de9dc47b94fc458f4119cbabb6883616e4a8750518310ccb",
@@ -189,6 +218,61 @@
 				"emulator": "f8d6e0586b0a20c7",
 				"mainnet": "1d7e57aa55817448",
 				"testnet": "631e88ae7f1d7c20"
+			}
+		},
+		"StableSwapFactory": {
+			"source": "mainnet://b063c16cac85dbd1.StableSwapFactory",
+			"hash": "46318aee6fd29616c8048c23210d4c4f5b172eb99a0ca911fbd849c831a52a0b",
+			"aliases": {
+				"mainnet": "b063c16cac85dbd1",
+				"testnet": "cbed4c301441ded2"
+			}
+		},
+		"SwapConfig": {
+			"source": "mainnet://b78ef7afa52ff906.SwapConfig",
+			"hash": "ccafdb89804887e4e39a9b8fdff5c0ff0d0743505282f2a8ecf86c964e691c82",
+			"aliases": {
+				"mainnet": "b78ef7afa52ff906",
+				"testnet": "ddb929038d45d4b3"
+			}
+		},
+		"SwapConnectors": {
+			"source": "mainnet://0bce04a00aedf132.SwapConnectors",
+			"hash": "5cec3b1be3c454d3949686ddfb4cb5dc36e91ae7cec4cca31f3d416cd7772006",
+			"aliases": {
+				"mainnet": "0bce04a00aedf132"
+			}
+		},
+		"SwapError": {
+			"source": "mainnet://b78ef7afa52ff906.SwapError",
+			"hash": "7d13a652a1308af387513e35c08b4f9a7389a927bddf08431687a846e4c67f21",
+			"aliases": {
+				"mainnet": "b78ef7afa52ff906",
+				"testnet": "ddb929038d45d4b3"
+			}
+		},
+		"SwapFactory": {
+			"source": "mainnet://b063c16cac85dbd1.SwapFactory",
+			"hash": "1142e0102c8597e405e24ed2c6e5579b0faeca41f656818db10f3142a83493d2",
+			"aliases": {
+				"mainnet": "b063c16cac85dbd1",
+				"testnet": "cbed4c301441ded2"
+			}
+		},
+		"SwapInterfaces": {
+			"source": "mainnet://b78ef7afa52ff906.SwapInterfaces",
+			"hash": "570bb4b9c8da8e0caa8f428494db80779fb906a66cc1904c39a2b9f78b89c6fa",
+			"aliases": {
+				"mainnet": "b78ef7afa52ff906",
+				"testnet": "ddb929038d45d4b3"
+			}
+		},
+		"SwapRouter": {
+			"source": "mainnet://a6850776a94e6551.SwapRouter",
+			"hash": "2ae9ecd237b7ea36b4fcc87f415d181b437543722a64f18094e026252607932c",
+			"aliases": {
+				"mainnet": "a6850776a94e6551",
+				"testnet": "2f8af5ed05bbde0d"
 			}
 		},
 		"ViewResolver": {
@@ -214,6 +298,13 @@
 				"type": "file",
 				"location": "emulator-account.pkey"
 			}
+		},
+		"mainnet": {
+			"address": "46df6b5eeec6103a",
+			"key": {
+				"type": "file",
+				"location": "mainnet.pkey"
+			}
 		}
 	},
 	"deployments": {
@@ -223,8 +314,13 @@
 				"CounterTransactionHandler",
 				"RickRoll",
 				"RickRollTransactionHandler",
-				"FastbreakVaultsCloser",
+				"FastbreakVaultsCloser_V1",
 				"FastbreakVaultsCloserTransactionHandler"
+			]
+		},
+		"mainnet": {
+			"mainnet": [
+				"FastbreakVaultsCloser_V1"
 			]
 		}
 	}

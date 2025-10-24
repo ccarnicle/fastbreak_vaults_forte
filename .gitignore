@@ -1,4 +1,5 @@
 # flow
 emulator-account.pkey
+mainnet.pkey
 imports
 .env
