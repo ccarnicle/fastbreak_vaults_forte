@@ -12,10 +12,11 @@
 				"testing": "0000000000000007"
 			}
 		},
-		"FastBreakEscrow": {
-			"source": "cadence/contracts/FastBreakEscrow.cdc",
+		"aiSportsJuice": {
+			"source": "cadence/contracts/aiSports/aiSportsJuice.cdc",
 			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
+				"mainnet": "9db94c9564243ba7",
+				"testnet": "f8ba321af4bd37bb"
 			}
 		},
 		"DapperUtilityCoin": {
@@ -25,11 +26,29 @@
 				"testnet": "82ec283f88a62e65"
 			}
 		},
+		"FastBreakEscrow": {
+			"source": "cadence/contracts/FastBreakEscrow.cdc",
+			"aliases": {
+				"emulator": "f8d6e0586b0a20c7"
+			}
+		},
 		"FastBreakV1": {
 			"source": "cadence/contracts/TopShot/FastBreakV1.cdc",
 			"aliases": {
 				"mainnet": "0b2a3299cc857e29",
 				"testnet": "f8ba321af4bd37bb"
+			}
+		},
+		"FastbreakVaultsCloser": {
+			"source": "cadence/contracts/FastbreakVaultsCloser.cdc",
+			"aliases": {
+				"testing": "0000000000000007"
+			}
+		},
+		"FastbreakVaultsCloserTransactionHandler": {
+			"source": "cadence/contracts/FastbreakVaultsCloserTransactionHandler.cdc",
+			"aliases": {
+				"testing": "0000000000000007"
 			}
 		},
 		"Market": {
@@ -38,7 +57,20 @@
 				"mainnet": "c1e4f4f4c4257510",
 				"testnet": "f8ba321af4bd37bb"
 			}
-		},"TopShot": {
+		},
+		"RickRoll": {
+			"source": "cadence/contracts/RickRoll.cdc",
+			"aliases": {
+				"testing": "0000000000000007"
+			}
+		},
+		"RickRollTransactionHandler": {
+			"source": "cadence/contracts/RickRollTransactionHandler.cdc",
+			"aliases": {
+				"testing": "0000000000000007"
+			}
+		},
+		"TopShot": {
 			"source": "cadence/contracts/TopShot/TopShot.cdc",
 			"aliases": {
 				"mainnet": "0b2a3299cc857e29",
@@ -188,7 +220,11 @@
 		"emulator": {
 			"emulator-account": [
 				"Counter",
-				"CounterTransactionHandler"
+				"CounterTransactionHandler",
+				"RickRoll",
+				"RickRollTransactionHandler",
+				"FastbreakVaultsCloser",
+				"FastbreakVaultsCloserTransactionHandler"
 			]
 		}
 	}
