@@ -320,7 +320,8 @@
 		},
 		"mainnet": {
 			"mainnet": [
-				"FastbreakVaultsCloser_V1"
+				"FastbreakVaultsCloser_V1",
+				"FastbreakVaultsCloserTransactionHandler"
 			]
 		}
 	}

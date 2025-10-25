@@ -11,9 +11,9 @@ contract FastbreakVaultsCloserTransactionHandler {
         access(FlowTransactionScheduler.Execute) fun executeTransaction(id: UInt64, data: AnyStruct?) {
 
             let tokenHolder = FastbreakVaultsCloserTransactionHandler.account.address
-            FastbreakVaultsCloser_V1.swapToJuice(tokenHolder: tokenHolder)
+            FastbreakVaultsCloser_V1.swapToJuice()
             
-            var delay: UFix64 = 5.0
+            var delay: UFix64 = 600.0
             let future = getCurrentBlock().timestamp + delay
             let priority = FlowTransactionScheduler.Priority.Medium
             let executionEffort: UInt64 = 1000

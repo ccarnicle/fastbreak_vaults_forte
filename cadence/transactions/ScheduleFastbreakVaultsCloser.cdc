@@ -5,13 +5,12 @@ import "FungibleToken"
 
 /// Schedule a Rick Roll with a delay of delaySeconds
 transaction(
-    delaySeconds: UFix64,
+    startTime: UFix64,
     priority: UInt8,
     executionEffort: UInt64,
     transactionData: AnyStruct?
 ) {
     prepare(signer: auth(Storage, Capabilities) &Account) {
-        let future = getCurrentBlock().timestamp + delaySeconds
 
         let pr = priority == 0
             ? FlowTransactionScheduler.Priority.High
@@ -21,7 +20,7 @@ transaction(
 
         let est = FlowTransactionScheduler.estimate(
             data: transactionData,
-            timestamp: future,
+            timestamp: startTime,
             priority: pr,
             executionEffort: executionEffort
         )
@@ -68,12 +67,12 @@ transaction(
         manager.schedule(
             handlerCap: handlerCap ?? panic("Could not borrow handler capability"),
             data: transactionData,
-            timestamp: future,
+            timestamp: startTime,
             priority: pr,
             executionEffort: executionEffort,
             fees: <-fees
         )
 
-        log("Scheduled transaction at \(future)")
+        log("Scheduled transaction at \(startTime)")
     }
 }
