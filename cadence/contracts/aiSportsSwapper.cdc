@@ -20,7 +20,7 @@ Development Plan & Testing Strategy (REVISED)
 // integration.
 
 // 1. MAINNET SWAP LOGIC - VALIDATED:
-//    - A prototype contract, `FastbreakVaultsCloser_V1`, has been successfully
+//    - A prototype contract, `aiSportsSwapper`, has been successfully
 //      deployed and tested directly on Mainnet (account 0x46df6b5eeec6103a).
 //    - This version confirms the core swap logic using Increment.fi's Action
 //      is fully functional.
@@ -43,7 +43,7 @@ Development Plan & Testing Strategy (REVISED)
 
 // 1. IMPLEMENT BLOCK TIMESTAMP LOGIC:
 //    - Finalize the Cadence code in the scheduling transaction
-//      (`ScheduleFastBreakVaultsCloser.cdc`) & contract (`FastbreakVaultsCloserTransactionHandler`)
+//      (`ScheduleFastBreakVaultsCloser.cdc`) & contract (`aiSportsSwapperTransactionHandler`)
 //    - Correctly use `getCurrentBlock().timestamp` to calculate and set the
 //      `startTime` and `interval` parameters for the job to ensure it runs
 //      at the desired daily cadence.
@@ -74,7 +74,7 @@ import "aiSportsJuice"
 import "IncrementFiSwapConnectors"
 
 access(all)
-contract FastbreakVaultsCloser_V1 {
+contract aiSportsSwapper {
 
     //add an array of token types that we should scan and swap
     access(all) let tokenStorageVaultPaths: [StoragePath]

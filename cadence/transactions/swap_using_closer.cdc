@@ -1,4 +1,4 @@
-import "FastbreakVaultsCloser_V1"
+import "aiSportsSwapper"
 
 transaction() {
     prepare(signer: auth(BorrowValue, Storage) &Account) {
@@ -6,6 +6,6 @@ transaction() {
     }
 
     execute {
-        FastbreakVaultsCloser_V1.swapToJuice()
+        aiSportsSwapper.swapToJuice()
     }
 }

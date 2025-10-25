@@ -1,17 +1,17 @@
 import "FlowTransactionScheduler"
 import "FlowTransactionSchedulerUtils"
-import "FastbreakVaultsCloser_V1"
+import "aiSportsSwapper"
 import "FlowToken"
 import "FungibleToken"
 
 access(all)
-contract FastbreakVaultsCloserTransactionHandler {
+contract aiSportsSwapperTransactionHandler {
     /// Handler resource that implements the Scheduled Transaction interface
     access(all) resource Handler: FlowTransactionScheduler.TransactionHandler {
         access(FlowTransactionScheduler.Execute) fun executeTransaction(id: UInt64, data: AnyStruct?) {
 
-            let tokenHolder = FastbreakVaultsCloserTransactionHandler.account.address
-            FastbreakVaultsCloser_V1.swapToJuice()
+            let tokenHolder = aiSportsSwapperTransactionHandler.account.address
+            aiSportsSwapper.swapToJuice()
             
             var delay: UFix64 = 600.0
             let future = getCurrentBlock().timestamp + delay
@@ -31,24 +31,24 @@ contract FastbreakVaultsCloserTransactionHandler {
             )
 
             // Ensure a handler resource exists in the contract account storage
-            if FastbreakVaultsCloserTransactionHandler.account.storage.borrow<&AnyResource>(from: /storage/FastbreakVaultsCloserTransactionHandler) == nil {
-                let handler <- FastbreakVaultsCloserTransactionHandler.createHandler()
-                FastbreakVaultsCloserTransactionHandler.account.storage.save(<-handler, to: /storage/FastbreakVaultsCloserTransactionHandler)
+            if aiSportsSwapperTransactionHandler.account.storage.borrow<&AnyResource>(from: /storage/aiSportsSwapperTransactionHandler) == nil {
+                let handler <- aiSportsSwapperTransactionHandler.createHandler()
+                aiSportsSwapperTransactionHandler.account.storage.save(<-handler, to: /storage/aiSportsSwapperTransactionHandler)
 
                 // Issue a non-entitled public capability for the handler that is publicly accessible
-                let publicCap = FastbreakVaultsCloserTransactionHandler.account.capabilities.storage
-                    .issue<&{FlowTransactionScheduler.TransactionHandler}>(/storage/FastbreakVaultsCloserTransactionHandler)
+                let publicCap = aiSportsSwapperTransactionHandler.account.capabilities.storage
+                    .issue<&{FlowTransactionScheduler.TransactionHandler}>(/storage/aiSportsSwapperTransactionHandler)
 
                 // publish the capability
-                FastbreakVaultsCloserTransactionHandler.account.capabilities.publish(publicCap, at: /public/FastbreakVaultsCloserTransactionHandler)
+                aiSportsSwapperTransactionHandler.account.capabilities.publish(publicCap, at: /public/aiSportsSwapperTransactionHandler)
             }
 
-            let vaultRef = FastbreakVaultsCloserTransactionHandler.account.storage.borrow<auth(FungibleToken.Withdraw) &FlowToken.Vault>(from: /storage/flowTokenVault)
+            let vaultRef = aiSportsSwapperTransactionHandler.account.storage.borrow<auth(FungibleToken.Withdraw) &FlowToken.Vault>(from: /storage/flowTokenVault)
             ?? panic("missing FlowToken vault on contract account")
             let feesVault <- vaultRef.withdraw(amount: estimate.flowFee ?? 0.0) as! @FlowToken.Vault
             
             // borrow a reference to the scheduled transaction manager
-            let manager = FastbreakVaultsCloserTransactionHandler.account.storage.borrow<auth(FlowTransactionSchedulerUtils.Owner) &{FlowTransactionSchedulerUtils.Manager}>(from: FlowTransactionSchedulerUtils.managerStoragePath)
+            let manager = aiSportsSwapperTransactionHandler.account.storage.borrow<auth(FlowTransactionSchedulerUtils.Owner) &{FlowTransactionSchedulerUtils.Manager}>(from: FlowTransactionSchedulerUtils.managerStoragePath)
                 ?? panic("Could not borrow a Manager reference from \(FlowTransactionSchedulerUtils.managerStoragePath)")
 
             let handlerTypeIdentifier = manager.getHandlerTypeIdentifiers().keys[0]
@@ -72,9 +72,9 @@ contract FastbreakVaultsCloserTransactionHandler {
         access(all) fun resolveView(_ view: Type): AnyStruct? {
             switch view {
                 case Type<StoragePath>():
-                    return /storage/FastbreakVaultsCloserTransactionHandler
+                    return /storage/aiSportsSwapperTransactionHandler
                 case Type<PublicPath>():
-                    return /public/FastbreakVaultsCloserTransactionHandler
+                    return /public/aiSportsSwapperTransactionHandler
                 default:
                     return nil
             }

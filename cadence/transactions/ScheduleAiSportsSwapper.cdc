@@ -3,7 +3,6 @@ import "FlowTransactionSchedulerUtils"
 import "FlowToken"
 import "FungibleToken"
 
-/// Schedule a Rick Roll with a delay of delaySeconds
 transaction(
     startTime: UFix64,
     priority: UInt8,
@@ -51,12 +50,12 @@ transaction(
         var handlerCap: Capability<auth(FlowTransactionScheduler.Execute) &{FlowTransactionScheduler.TransactionHandler}>? = nil
 
         if let cap = signer.capabilities.storage
-                            .getControllers(forPath: /storage/FastbreakVaultsCloserTransactionHandler)[0]
+                            .getControllers(forPath: /storage/aiSportsSwapperTransactionHandler)[0]
                             .capability as? Capability<auth(FlowTransactionScheduler.Execute) &{FlowTransactionScheduler.TransactionHandler}> {
             handlerCap = cap
         } else {
             handlerCap = signer.capabilities.storage
-                            .getControllers(forPath: /storage/FastbreakVaultsCloserTransactionHandler)[1]
+                            .getControllers(forPath: /storage/aiSportsSwapperTransactionHandler)[1]
                             .capability as! Capability<auth(FlowTransactionScheduler.Execute) &{FlowTransactionScheduler.TransactionHandler}>
         }
 

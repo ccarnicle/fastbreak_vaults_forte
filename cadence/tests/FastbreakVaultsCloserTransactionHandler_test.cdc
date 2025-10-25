@@ -4,8 +4,8 @@ access(all) let account = Test.createAccount()
 
 access(all) fun testContract() {
     let err = Test.deployContract(
-        name: "FastbreakVaultsCloserTransactionHandler",
-        path: "../contracts/FastbreakVaultsCloserTransactionHandler.cdc",
+        name: "aiSportsSwapperTransactionHandler",
+        path: "../contracts/aiSportsSwapperTransactionHandler.cdc",
         arguments: [],
     )
 

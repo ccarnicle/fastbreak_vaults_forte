@@ -1,17 +1,5 @@
 {
 	"contracts": {
-		"Counter": {
-			"source": "cadence/contracts/Counter.cdc",
-			"aliases": {
-				"testing": "0000000000000007"
-			}
-		},
-		"CounterTransactionHandler": {
-			"source": "cadence/contracts/CounterTransactionHandler.cdc",
-			"aliases": {
-				"testing": "0000000000000007"
-			}
-		},
 		"DapperUtilityCoin": {
 			"source": "cadence/contracts/TopShot/DapperUtilityCoin.cdc",
 			"aliases": {
@@ -32,14 +20,14 @@
 				"testnet": "f8ba321af4bd37bb"
 			}
 		},
-		"FastbreakVaultsCloserTransactionHandler": {
-			"source": "cadence/contracts/FastbreakVaultsCloserTransactionHandler.cdc",
+		"aiSportsSwapperTransactionHandler": {
+			"source": "cadence/contracts/aiSportsSwapperTransactionHandler.cdc",
 			"aliases": {
 				"testing": "0000000000000007"
 			}
 		},
-		"FastbreakVaultsCloser_V1": {
-			"source": "cadence/contracts/FastbreakVaultsCloser.cdc",
+		"aiSportsSwapper": {
+			"source": "cadence/contracts/aiSportsSwapper.cdc",
 			"aliases": {
 				"mainnet": "46df6b5eeec6103a",
 				"testing": "0000000000000007"
@@ -50,18 +38,6 @@
 			"aliases": {
 				"mainnet": "c1e4f4f4c4257510",
 				"testnet": "f8ba321af4bd37bb"
-			}
-		},
-		"RickRoll": {
-			"source": "cadence/contracts/RickRoll.cdc",
-			"aliases": {
-				"testing": "0000000000000007"
-			}
-		},
-		"RickRollTransactionHandler": {
-			"source": "cadence/contracts/RickRollTransactionHandler.cdc",
-			"aliases": {
-				"testing": "0000000000000007"
 			}
 		},
 		"TopShot": {
@@ -310,18 +286,13 @@
 	"deployments": {
 		"emulator": {
 			"emulator-account": [
-				"Counter",
-				"CounterTransactionHandler",
-				"RickRoll",
-				"RickRollTransactionHandler",
-				"FastbreakVaultsCloser_V1",
-				"FastbreakVaultsCloserTransactionHandler"
+				"aiSportsSwapperTransactionHandler"
 			]
 		},
 		"mainnet": {
 			"mainnet": [
-				"FastbreakVaultsCloser_V1",
-				"FastbreakVaultsCloserTransactionHandler"
+				"aiSportsSwapper",
+				"aiSportsSwapperTransactionHandler"
 			]
 		}
 	}
