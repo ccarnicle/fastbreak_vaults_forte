@@ -73,13 +73,21 @@ import "FungibleTokenMetadataViews"
 import "aiSportsJuice"
 import "IncrementFiSwapConnectors"
 
-access(all)
-contract aiSportsSwapper {
+access(all) contract aiSportsSwapper_V1 {
+
+      access(all) let SwapManagerStoragePath: StoragePath
 
     //add an array of token types that we should scan and swap
     access(all) let tokenStorageVaultPaths: [StoragePath]
+    access(all) let swappers: [IncrementFiSwapConnectors.Swapper]
 
     access(all) fun swapToJuice() {
+
+        var vaultPathIndex = 0
+
+        // Deposit JUICE into the token holder's JUICE receiver
+        let juiceReceiver = self.account.capabilities.get<&{FungibleToken.Receiver}>(/public/aiSportsJuiceReceiver).borrow()
+            ?? panic("Missing /public/aiSportsJuiceReceiver capability on signer")
 
         //loop through the array of token public vault paths and check the balance of each token
         for tokenStorageVaultPath in self.tokenStorageVaultPaths {
@@ -91,46 +99,33 @@ contract aiSportsSwapper {
 
                 if balance > 0.5 {
                     let balanceToSwap = balance - 0.5
-                    log("Balance to Swap: \(balanceToSwap)")
                     let flowToWithdraw  <- vaultRef.withdraw(amount: balanceToSwap)
-
-                    //swap the balance to juice    
-                    
-                    // Router path for IncrementFi (FLOW -> stFLOW -> JUICE)
-                    let path: [String] = [
-                        "A.1654653399040a61.FlowToken",
-                        "A.d6f80565193ad727.stFlowToken",
-                        "A.9db94c9564243ba7.aiSportsJuice"
-                    ]
-
-                    // Build the IncrementFi swapper (FLOW -> JUICE via stFLOW)
-                    // Provide concrete token vault types for validation against the path
-                    let swapper = IncrementFiSwapConnectors.Swapper(
-                        path: path,
-                        inVault: Type<@FlowToken.Vault>(),
-                        outVault: Type<@aiSportsJuice.Vault>(),
-                        uniqueID: nil
-                    )
-
+                
                     // Perform the swap; the swapper internally quotes amountOutMin
-                    let juiceVault <- swapper.swap(quote: nil, inVault: <-flowToWithdraw)
-
-                    // Deposit JUICE into the token holder's JUICE receiver
-                    let juiceReceiver = self.account
-                        .capabilities
-                        .get<&{FungibleToken.Receiver}>(/public/aiSportsJuiceReceiver)
-                        .borrow()
-                        ?? panic("Missing /public/aiSportsJuiceReceiver capability on signer")
+                    let juiceVault <- self.swappers[0].swap(quote: nil, inVault: <-flowToWithdraw)
 
                     juiceReceiver.deposit(from: <-juiceVault)
                 }
-            } //once we add more tokens, will need to add else logic here to swap
+            } else { //once we add more tokens, will need to add else logic here to swap
+                let balance = vaultRef.balance
+                if balance > 0.0 {
+                    let balanceToSwap = balance
+                    let tokenToWithdraw  <- vaultRef.withdraw(amount: balanceToSwap)
+                    let juiceVault <- self.swappers[vaultPathIndex].swap(quote: nil, inVault: <-tokenToWithdraw)
+                    juiceReceiver.deposit(from: <-juiceVault)
+
+                }
+            }
+            vaultPathIndex = vaultPathIndex + 1
         }
     }
 
-    //this function is called by the contract admin to add a token type to the array of tokens to add/swap
-    access(account) fun addTokenType(vaultStoragePath: StoragePath) {
-        self.tokenStorageVaultPaths.append(vaultStoragePath)
+    access(all) resource SwapManager{
+        //this function is called by the contract admin to add a token type to the array of tokens to add/swap
+        access(all) fun addTokenType(vaultStoragePath: StoragePath, swapper: IncrementFiSwapConnectors.Swapper) {
+            aiSportsSwapper_V1.tokenStorageVaultPaths.append(vaultStoragePath)
+            aiSportsSwapper_V1.swappers.append(swapper)
+        }
     }
 
     init() {
@@ -139,5 +134,22 @@ contract aiSportsSwapper {
             viewType: Type<FungibleTokenMetadataViews.FTVaultData>()
             ) as! FungibleTokenMetadataViews.FTVaultData
         self.tokenStorageVaultPaths = [ vaultData.storagePath ]
+
+        // Initialize with IncrementFi FLOW -> JUICE (via stFLOW) swapper
+        // Provide concrete token vault types for validation against the path
+        self.swappers = [IncrementFiSwapConnectors.Swapper(
+            path: [
+            "A.1654653399040a61.FlowToken",
+            "A.d6f80565193ad727.stFlowToken",
+            "A.9db94c9564243ba7.aiSportsJuice"
+        ],
+            inVault: Type<@FlowToken.Vault>(),
+            outVault: Type<@aiSportsJuice.Vault>(),
+            uniqueID: nil
+        )]
+
+        //create the swap manager resource
+        self.SwapManagerStoragePath = /storage/aiSportsSwapperSwapManager_V1
+        self.account.storage.save(<-create SwapManager(), to: self.SwapManagerStoragePath)
     }
 }

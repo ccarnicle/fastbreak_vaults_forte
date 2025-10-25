@@ -20,24 +20,18 @@
 				"testnet": "f8ba321af4bd37bb"
 			}
 		},
-		"aiSportsSwapperTransactionHandler": {
-			"source": "cadence/contracts/aiSportsSwapperTransactionHandler.cdc",
-			"aliases": {
-				"testing": "0000000000000007"
-			}
-		},
-		"aiSportsSwapper": {
-			"source": "cadence/contracts/aiSportsSwapper.cdc",
-			"aliases": {
-				"mainnet": "46df6b5eeec6103a",
-				"testing": "0000000000000007"
-			}
-		},
 		"Market": {
 			"source": "cadence/contracts/TopShot/Market.cdc",
 			"aliases": {
 				"mainnet": "c1e4f4f4c4257510",
 				"testnet": "f8ba321af4bd37bb"
+			}
+		},
+		"TSHOT": {
+			"source": "cadence/contracts/TopShot/TSHOT.cdc",
+			"aliases": {
+				"mainnet": "05b67ba314000b2d",
+				"testnet": "332ffc0ae9bba9c1"
 			}
 		},
 		"TopShot": {
@@ -74,6 +68,19 @@
 			"aliases": {
 				"mainnet": "9db94c9564243ba7",
 				"testnet": "f8ba321af4bd37bb"
+			}
+		},
+		"aiSportsSwapperTransactionHandler": {
+			"source": "cadence/contracts/aiSportsSwapperTransactionHandler.cdc",
+			"aliases": {
+				"testing": "0000000000000007"
+			}
+		},
+		"aiSportsSwapper_V1": {
+			"source": "cadence/contracts/aiSportsSwapper.cdc",
+			"aliases": {
+				"mainnet": "46df6b5eeec6103a",
+				"testing": "0000000000000007"
 			}
 		}
 	},
@@ -291,7 +298,7 @@
 		},
 		"mainnet": {
 			"mainnet": [
-				"aiSportsSwapper",
+				"aiSportsSwapper_V1",
 				"aiSportsSwapperTransactionHandler"
 			]
 		}

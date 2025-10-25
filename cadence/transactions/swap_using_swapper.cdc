@@ -1,4 +1,4 @@
-import "aiSportsSwapper"
+import "aiSportsSwapper_V1"
 
 transaction() {
     prepare(signer: auth(BorrowValue, Storage) &Account) {
@@ -6,6 +6,6 @@ transaction() {
     }
 
     execute {
-        aiSportsSwapper.swapToJuice()
+        aiSportsSwapper_V1.swapToJuice()
     }
 }
