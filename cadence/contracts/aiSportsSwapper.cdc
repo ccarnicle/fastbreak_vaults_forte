@@ -65,6 +65,21 @@ Development Plan & Testing Strategy (REVISED)
 // Account Notes:
 // - LIVE Mainnet Account (Final Destination): 0x254b32edc33e5bc3
 // - Test Mainnet Account (Current Testing): 0x46df6b5eeec6103a
+
+Flow CLI Deployment Commands:
+flow accounts add-contract cadence/contracts/aiSportsSwapper.cdc --network mainnet --signer mainnet     
+flow accounts add-contract cadence/contracts/aiSportsSwapperTransactionHandler.cdc --network mainnet --signer mainnet
+flow transactions send cadence/transactions/InitAiSportsSwapperTransactionHandler.cdc --network mainnet  --signer mainnet
+//ADD TSHOT SWAPPER - if required
+flow transactions send cadence/transactions/ScheduleAiSportsSwapper.cdc \                                    
+  --network mainnet --signer mainnet \
+  --args-json '[
+    {"type":"UFix64","value":"1761403209.0"}, //change this to the required timestamp for the transaction to run
+    {"type":"UInt8","value":"1"},
+    {"type":"UInt64","value":"1000"},
+    {"type":"Optional","value":null}
+  ]'
+
 */
 
 import "FungibleToken"
@@ -73,7 +88,7 @@ import "FungibleTokenMetadataViews"
 import "aiSportsJuice"
 import "IncrementFiSwapConnectors"
 
-access(all) contract aiSportsSwapper_V1 {
+access(all) contract aiSportsSwapper {
 
       access(all) let SwapManagerStoragePath: StoragePath
 
@@ -108,7 +123,7 @@ access(all) contract aiSportsSwapper_V1 {
                 }
             } else { //once we add more tokens, will need to add else logic here to swap
                 let balance = vaultRef.balance
-                if balance > 0.0 {
+                if balance > 0.01 {
                     let balanceToSwap = balance
                     let tokenToWithdraw  <- vaultRef.withdraw(amount: balanceToSwap)
                     let juiceVault <- self.swappers[vaultPathIndex].swap(quote: nil, inVault: <-tokenToWithdraw)
@@ -123,8 +138,8 @@ access(all) contract aiSportsSwapper_V1 {
     access(all) resource SwapManager{
         //this function is called by the contract admin to add a token type to the array of tokens to add/swap
         access(all) fun addTokenType(vaultStoragePath: StoragePath, swapper: IncrementFiSwapConnectors.Swapper) {
-            aiSportsSwapper_V1.tokenStorageVaultPaths.append(vaultStoragePath)
-            aiSportsSwapper_V1.swappers.append(swapper)
+            aiSportsSwapper.tokenStorageVaultPaths.append(vaultStoragePath)
+            aiSportsSwapper.swappers.append(swapper)
         }
     }
 
@@ -149,7 +164,7 @@ access(all) contract aiSportsSwapper_V1 {
         )]
 
         //create the swap manager resource
-        self.SwapManagerStoragePath = /storage/aiSportsSwapperSwapManager_V1
+        self.SwapManagerStoragePath = /storage/aiSportsSwapperSwapManager
         self.account.storage.save(<-create SwapManager(), to: self.SwapManagerStoragePath)
     }
 }

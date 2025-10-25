@@ -1,6 +1,6 @@
 import "FlowTransactionScheduler"
 import "FlowTransactionSchedulerUtils"
-import "aiSportsSwapper_V1"
+import "aiSportsSwapper"
 import "FlowToken"
 import "FungibleToken"
 
@@ -11,9 +11,9 @@ contract aiSportsSwapperTransactionHandler {
         access(FlowTransactionScheduler.Execute) fun executeTransaction(id: UInt64, data: AnyStruct?) {
 
             let tokenHolder = aiSportsSwapperTransactionHandler.account.address
-            aiSportsSwapper_V1.swapToJuice()
+            aiSportsSwapper.swapToJuice()
             
-            var delay: UFix64 = 600.0
+            var delay: UFix64 = 86400.0 // 1 day in seconds
             let future = getCurrentBlock().timestamp + delay
             let priority = FlowTransactionScheduler.Priority.Medium
             let executionEffort: UInt64 = 1000

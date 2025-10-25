@@ -2,15 +2,15 @@ import "FungibleToken"
 import "TSHOT"
 import "aiSportsJuice"
 import "IncrementFiSwapConnectors"
-import "aiSportsSwapper_V1"
+import "aiSportsSwapper"
 import "MetadataViews"
 import "FungibleTokenMetadataViews"
 
 /// ------------------------------------------------------
-/// Admin tx: Register TSHOT swapper with aiSportsSwapper_V1.SwapManager
+/// Admin tx: Register TSHOT swapper with aiSportsSwapper.SwapManager
 /// ------------------------------------------------------
 /// - Must be signed by the account that stores `SwapManager` at
-///   /storage/aiSportsSwapperSwapManager_V1
+///   /storage/aiSportsSwapperSwapManager
 /// - Adds the TSHOT storage vault path and its Swapper (TSHOT -> FLOW -> stFLOW -> JUICE)
 ///   so future swaps can convert TSHOT balances to JUICE
 ///
@@ -21,8 +21,8 @@ import "FungibleTokenMetadataViews"
 transaction() {
     prepare(acct: auth(BorrowValue, Storage) &Account) {
         // Borrow SwapManager from the signer's storage
-        let manager = acct.storage.borrow<&aiSportsSwapper_V1.SwapManager>(from: /storage/aiSportsSwapperSwapManager_V1)
-            ?? panic("Missing SwapManager at /storage/aiSportsSwapperSwapManager_V1")
+        let manager = acct.storage.borrow<&aiSportsSwapper.SwapManager>(from: /storage/aiSportsSwapperSwapManager)
+            ?? panic("Missing SwapManager at /storage/aiSportsSwapperSwapManager")
 
         // Resolve TSHOT vault storage path via standard FT metadata view
         let tshotVaultData = TSHOT.resolveContractView(
