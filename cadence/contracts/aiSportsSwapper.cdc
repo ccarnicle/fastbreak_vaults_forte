@@ -1,72 +1,41 @@
 /*
 ================================================================================
-File: FastBreakVaultsCloser.cdc
+File: aiSportsSwapper.cdc
 Project: aiSports - Flow Forte Hackathon Upgrade
 
-Development Plan & Testing Strategy (REVISED)
+Deployment & Operations Summary (PRODUCTION)
 ================================================================================
 
-// OVERALL GOAL:
-// This contract is designed to be executed by a Flow Scheduled Transaction.
-// Its ultimate purpose is to take the $FLOW prize pool from a completed
-// FastBreak Vault, swap it for $JUICE using the Increment.fi DEX Action,
-// and hold the $JUICE within this contract's account for eventual distribution
-// or further use in the aiSports ecosystem.
+// OVERALL PURPOSE:
+// This contract is executed by a Flow Scheduled Transaction. It converts the
+// account's supported token balances into $JUICE using Increment.fi swap
+// actions, retaining a small $FLOW reserve for fees. The resulting $JUICE
+// remains in this account for downstream aiSports use.
 
-// ==============================================================================
-// CURRENT STATUS & VALIDATION
-// ==============================================================================
-// Development has been split into two parallel streams which are now ready for
-// integration.
+// =============================================================================
+// CURRENT STATUS (LIVE ON MAINNET)
+// =============================================================================
+// - Contracts deployed to production account 0x254b32edc33e5bc3:
+//   - aiSportsSwapper
+//   - aiSportsSwapperTransactionHandler
+// - Scheduled transactions are live on mainnet and execute as configured.
+// - Core FLOW -> JUICE swap flow is stable; 0.5 $FLOW is retained for fees.
+// - Multi-token swaps are supported. Initial additional token: TSHOT.
 
-// 1. MAINNET SWAP LOGIC - VALIDATED:
-//    - A prototype contract, `aiSportsSwapper`, has been successfully
-//      deployed and tested directly on Mainnet (account 0x46df6b5eeec6103a).
-//    - This version confirms the core swap logic using Increment.fi's Action
-//      is fully functional.
-//    - The contract correctly checks its own balance, retains 0.5 $FLOW for
-//      gas, and swaps the remaining balance into $JUICE.
-//    - The architecture has been simplified: swaps are in-place, and the
-//      $JUICE remains in the contract's account, removing transfer steps.
+// =============================================================================
+// NOTES
+// =============================================================================
+// - The architecture performs in-place swaps; proceeds remain in this account.
+// - Use the helper scripts to inspect handler views and scheduled tx data.
+// - Cancellation can be performed via CancelScheduledTransaction.cdc if needed.
 
-// 2. SCHEDULED TRANSACTION LOGIC - VALIDATED ON EMULATOR:
-//    - The logic for scheduling, querying, and canceling the transaction
-//      has been fully developed and tested on the Flow Emulator.
-//    - Helper scripts to manage the scheduled transaction lifecycle (especially
-//      for cancellation during testing) are ready.
+// =============================================================================
+// Accounts
+// =============================================================================
+// - Production/Mainnet: 0x254b32edc33e5bc3
+// - Mainnet Test Account: 0x46df6b5eeec6103a
 
-// ==============================================================================
-// NEXT STEPS: INTEGRATION AND FINAL TESTING
-// ==============================================================================
-// The primary task is to combine the two validated components and test them
-// together on Mainnet in a controlled environment.
-
-// 1. IMPLEMENT BLOCK TIMESTAMP LOGIC:
-//    - Finalize the Cadence code in the scheduling transaction
-//      (`ScheduleFastBreakVaultsCloser.cdc`) & contract (`aiSportsSwapperTransactionHandler`)
-//    - Correctly use `getCurrentBlock().timestamp` to calculate and set the
-//      `startTime` and `interval` parameters for the job to ensure it runs
-//      at the desired daily cadence.
-
-// 2. Deploy Transaction Handler:
-//    - Use the update block timestamp info to deploy the Transaction Handler to the Mainnet test account
-//      (0x46df6b5eeec6103a)
-//    - Verify on-chain that the job executes at the correct time and that the
-//      $FLOW is successfully swapped to $JUICE.
-//    - Use the get_transaction_data.cdc & cancellation tx (CancelScheduledTransaction.cdc) to find and stop the test job.
-
-// 4. PRODUCTION DEPLOYMENT:
-//    - Once the end-to-end test is successful, deploy the final, production-ready
-//      contract to the primary aiSports account (0x254b32edc33e5bc3).
-//    - Schedule the transaction to run once per day to automate the conversion
-//      of FastBreak Vault payouts.
-
-// ==============================================================================
-// Account Notes:
-// - LIVE Mainnet Account (Final Destination): 0x254b32edc33e5bc3
-// - Test Mainnet Account (Current Testing): 0x46df6b5eeec6103a
-
-Flow CLI Deployment Commands:
+Flow CLI Deployment Commands: (current)
 flow accounts add-contract cadence/contracts/aiSportsSwapper.cdc --network mainnet --signer mainnet     
 flow accounts add-contract cadence/contracts/aiSportsSwapperTransactionHandler.cdc --network mainnet --signer mainnet
 flow transactions send cadence/transactions/InitAiSportsSwapperTransactionHandler.cdc --network mainnet  --signer mainnet
