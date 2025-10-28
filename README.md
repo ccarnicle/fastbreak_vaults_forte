@@ -79,4 +79,4 @@ To set up the project locally for development:
 
 -   **Live Demo URL:** [To be deployed]
 -   **Demo Video:** [To be recorded]
--   **Dune Analytics Dashboard:** [Link to be added on Day 7]
+-   **Dune Analytics Dashboard:** https://dune.com/aisports/aisports-analytics
