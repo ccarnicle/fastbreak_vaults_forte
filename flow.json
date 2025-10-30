@@ -85,6 +85,20 @@
 		}
 	},
 	"dependencies": {
+		"BandOracle": {
+			"source": "mainnet://6801a6222ebf784a.BandOracle",
+			"hash": "be8c986f46eccfe55a25447e1b7fa07e95769ac4ca11918833130a4bf3297b16",
+			"aliases": {
+				"mainnet": "6801a6222ebf784a"
+			}
+		},
+		"BandOracleConnectors": {
+			"source": "mainnet://f627b5c89141ed99.BandOracleConnectors",
+			"hash": "58721b4bd32126489a9d24a1bf229c8296457813f4c733d9e263d2caac070339",
+			"aliases": {
+				"mainnet": "f627b5c89141ed99"
+			}
+		},
 		"Burner": {
 			"source": "testnet://9a0766d93b6608b7.Burner",
 			"hash": "71af18e227984cd434a3ad00bb2f3618b76482842bae920ee55662c37c8bf331",
@@ -135,7 +149,7 @@
 		},
 		"FlowToken": {
 			"source": "testnet://7e60df042a9c0868.FlowToken",
-			"hash": "a7b219cf8596c1116aa219bb31535faa79ebf5e02d16fa594acd0398057674e1",
+			"hash": "cefb25fd19d9fc80ce02896267eb6157a6b0df7b1935caa8641421fe34c0e67a",
 			"aliases": {
 				"emulator": "0ae53cb6e3f42a79",
 				"mainnet": "1654653399040a61",
@@ -144,7 +158,7 @@
 		},
 		"FlowTransactionScheduler": {
 			"source": "testnet://8c5303eaa26202d6.FlowTransactionScheduler",
-			"hash": "4e95e8ac5d5af87760fcadd5a2bfb217582e748a292dab24e83dac7db314f67f",
+			"hash": "7a2f0b22b53251065fa5db64b6c4329a7bf637012a006ab0b345f28e3b340db7",
 			"aliases": {
 				"emulator": "f8d6e0586b0a20c7",
 				"mainnet": "e467b9dd11fa00df",
@@ -167,6 +181,13 @@
 				"emulator": "ee82856bf20e2aa6",
 				"mainnet": "f233dcee88fe0abe",
 				"testnet": "9a0766d93b6608b7"
+			}
+		},
+		"FungibleTokenConnectors": {
+			"source": "mainnet://1d9a619393e9fb53.FungibleTokenConnectors",
+			"hash": "01dd4a81d57f079316ff27e3980de1b895e2c50002e47d3c20f68bbf694e54b0",
+			"aliases": {
+				"mainnet": "1d9a619393e9fb53"
 			}
 		},
 		"FungibleTokenMetadataViews": {
