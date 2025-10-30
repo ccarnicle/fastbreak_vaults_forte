@@ -10,7 +10,7 @@
 
 ## 🧩 Core Components
 
--   **Core Contract:** `FastBreakEscrow.cdc` — foundational escrow and payout logic for FastBreak Vaults (pre-existing; core of the entry)
+-   **Core Contract:** `FastBreakEscrow.cdc` — foundational escrow and payout logic for FastBreak Vaults
 -   **Hackathon Additions:**
     -   `aiSportsSwapper.cdc` — swaps supported tokens (starting with `$FLOW`) to `$JUICE`
     -   `aiSportsSwapperTransactionHandler.cdc` — scheduled handler that triggers swaps on a cadence
