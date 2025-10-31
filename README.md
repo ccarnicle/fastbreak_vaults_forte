@@ -98,6 +98,6 @@ To set up the project locally for development:
 ## 🔗 Links & Resources
 
 -   **Live URL:** https://www.aisportspro.com/fastbreak
--   **Demo Video:** [To be recorded]
+-   **Demo Video:** https://www.youtube.com/watch?v=mb-8Q12uNVY 
 -   **Dune Analytics Dashboard:** https://dune.com/aisports/aisports-analytics
 -   **Contracts:** See "Contract Links (Mainnet)" above
